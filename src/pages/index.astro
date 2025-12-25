@@ -1,48 +1,51 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+// 先注释掉可能不存在的组件，防止报错
 import IntroCard from '../components/sections/IntroCard.astro';
 import TimeZoneCard from '../components/sections/TimeZoneCard.astro';
 import Contact from '../components/sections/Contact.astro'; 
 import Card from '../components/Card.astro'; 
 import { bookmarks } from '../data/bookmarks'; 
+
+// 获取最新的博客文章（解决博客标题不显示的问题）
+import { getCollection } from "astro:content";
+const posts = await getCollection("posts");
+// 只取最新的 1 篇来展示
+const latestPost = posts.sort((a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate))[0];
 ---
-
-<BaseLayout>
-  <div
-    slot="loader"
-    class="loader-grid grid grid-cols-1 gap-4 overflow-hidden md:grid-cols-4 md:grid-rows-2 h-full"
-  >
+<BaseLayout title="Tiger的首页" description="我的个人主页">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
     
-    <IntroCard colSpan="md:col-span-3" rowSpan="md:row-span-1" />
-
-    <TimeZoneCard />
-
-    <Card colSpan="md:col-span-3" rowSpan="md:row-span-1" href="/bookmarks">
-      <div class="flex flex-col justify-between h-full p-6">
-        
-        <div class="flex items-center justify-between mb-4">
-          <div class="flex items-center gap-2">
-            <span class="text-2xl">⭐</span>
-            <h2 class="text-xl font-bold">常用收藏 & 导航</h2>
-          </div>
-          <span class="text-xs text-gray-500 group-hover:text-primary transition-colors">查看全部 &rarr;</span>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-            {bookmarks.slice(0, 3).map((item) => (
-              <div class="p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-primary/10 transition-colors text-sm truncate">
-                <span class="font-medium">{item.title}</span>
-              </div>
-            ))}
-        </div>
-
-        <p class="mt-4 text-xs text-gray-400">
-            点击卡片进入完整收藏库，或通过顶部菜单访问博客与项目。
+    <Card colSpan="md:col-span-3" rowSpan="md:row-span-1">
+      <div class="p-6">
+        <h1 class="text-3xl font-bold mb-2">👋 你好，我是 Tiger</h1>
+        <p class="text-gray-500">
+          欢迎来到我的个人知识库。这里记录了我的博客文章、项目和常用工具收藏。
         </p>
       </div>
     </Card>
 
-    <Contact colSpan="md:col-span-1" rowSpan="md:row-span-1" />
+    <Card colSpan="md:col-span-2" rowSpan="md:row-span-1" href="/bookmarks">
+      <div class="p-6 h-full flex flex-col justify-between">
+        <div>
+          <h2 class="text-xl font-bold mb-2">⭐ 常用收藏</h2>
+          <div class="flex flex-wrap gap-2">
+            {bookmarks && bookmarks.slice(0, 3).map((item) => (
+              <span class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-sm">
+                {item.title}
+              </span>
+            ))}
+          </div>
+        </div>
+        <p class="text-xs text-gray-400 mt-4">点击查看更多资源 &rarr;</p>
+      </div>
+    </Card>
+
+    <Card colSpan="md:col-span-1" rowSpan="md:row-span-1" href="/posts">
+      <div class="p-6 h-full flex flex-col justify-center items-center text-center hover:text-primary transition-colors">
+        <h2 class="text-xl font-bold">📝 阅读博客</h2>
+      </div>
+    </Card>
 
   </div>
 </BaseLayout>
