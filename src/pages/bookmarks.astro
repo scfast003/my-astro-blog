@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { bookmarks } from '../data/bookmarks';
+
+// 这一步是为了把扁平的数组按 category 分组
+const groupedBookmarks = bookmarks.reduce((acc, item) => {
+  const { category } = item;
+  if (!acc[category]) {
+    acc[category] = [];
+  }
+  acc[category].push(item);
+  return acc;
+}, {});
+---
+
+<BaseLayout title="网站收藏">
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-8">网站收藏</h1>
+
+    {Object.keys(groupedBookmarks).map((category) => (
+      <div class="mb-12">
+        <h2 class="text-xl font-bold mb-4 flex items-center">
+          <span class="w-2 h-6 bg-primary mr-2 rounded"></span>
+          {category}
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {groupedBookmarks[category].map((item) => (
+            <a 
+              href={item.url} 
+              target="_blank"
+              class="border p-4 rounded-lg hover:shadow-md transition bg-card"
+            >
+              <div class="font-bold text-primary">{item.title}</div>
+              <div class="text-sm text-gray-500 mt-1">{item.desc}</div>
+            </a>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</BaseLayout>

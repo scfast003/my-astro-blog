@@ -1,77 +1,53 @@
 export const PROFILE = {
   site: {
     SEO: {
-      //     more complicated description for SEO
-      title: "Tech Tim (@TechTim42) - Learn, Share and Grow ❤️",
+      // 浏览器标签页标题和搜索引擎描述
+      title: "Tiger的个人主页 - 学习、分享与成长",
       description:
-        "Learn, Share and Grow ❤️ -- Software Engineer | AWS Professional | Open Source Lover  --☘️ Be more productive, Better in communicating, Contribute more to community. | Tech Tim's New Astro Portfolio",
+        "分享技术心得与生活感悟 -- 羽毛球爱好者 | Dota菜鸟 |  -- 记录学习历程与分享生活",
     },
   },
-  timezone: "Australia/Sydney",
-  language: "en-AU",
-  firstName: "Tim",
-  name: "Tech Tim",
-  headLine: "Learn, Share and Grow ❤️",
+  // 修改为北京时间，这将影响首页的时钟显示
+  timezone: "Asia/Shanghai", 
+  language: "zh-CN",
+  
+  // 必须加上这一段 👇
+  skills: ["React", "Astro", "Tailwind CSS", "TypeScript"],
+  
+  // 您的名字
+  firstName: "Tiger",
+  name: "Tiger", // 页面大标题显示的名称
+  
+  // 首页主要的一句话介绍
+  headLine: "行而不辍，未来可期 ❤️",
+  // 副标题
   headLine2:
-    "I enjoy providing software solutions and bring ideas to life and solve real-world problems.",
-  website: "https://techtim42.bai.uno",
-  repo: "https://github.com/tim-hub/techtim-astro-bento-portfolio",
-  avatarUrl: "https://techtim42.bai.uno/techtim42.webp",
+    "热衷于折腾，探索的互联网爱好者。",
+  
+  // 您的相关链接
+  website: "开发中",
+  repo: "https://github.com/scfast001",
+  avatarUrl: "/avatar.webp", // 请确保 public 文件夹下有一张头像图片
+  
+  // 首页 Bento 格子里的短介绍列表
   shortIntros: [
-    "💻 Software/AI Engineer | Open Source Lover | Self-starter",
-    "☁️ AWS Professional | AWS Community Builder",
-    "☘️ Passionate about Dev Experience(DX) Improvement and bringing ideas to life",
-    "📈 Unprofessional Investor",
-    "🌱 Part-time blogger and unprofessional Youtuber",
-    "📚 Book reader | 🥏 Frisbee Ultimate Player | 🎲 Board Game Player",
+    "💻 互联网游民",
+    "✈️ 羽毛球爱好者",
+    "🔧 Dota菜鸟",
+    "📚 终身学习者",
   ],
-  words: ["As each one has received a gift, minister it to one another"],
-  skills: [
-    "Python / Django",
-    "JavaScript",
-    "Typescript",
-    "AWS",
-    "Cloud Computing",
-    "Kubernetes",
-    "React",
-    "Node.js",
-    "Postgres",
-    "SQL",
-    "Astro",
-  ],
+  
+  // 页面底部的座右铭
+  words: ["路漫漫其修远兮，吾将上下而求索"],
+  
+  // 社交链接 (保留了键名，请替换为您自己的链接，没有的留空即可)
   links: {
-    github: "https://github.com/tim-hub",
-    medium: "https://medium.com/@TechTim42",
-    twitter: "https://twitter.com/TechTim42",
-    bluesky: "https://bsky.app/profile/techtim.bsky.social",
-    thread: "https://www.threads.net/@techtim2024",
-    mastodon: "https://mastodon.social/@techtim42",
-    youtube: "https://www.youtube.com/@techtim42",
-    stackoverflow: "https://stackoverflow.com/users/5249708/tim",
-    devto: "https://dev.to/timhub",
-    goodreads: "",
+    github: "https://github.com/scfast001",
+    medium: "", // 如果没有可以留空
+    twitter: "", 
+    bluesky: "",
+    thread: "",
+    mastodon: "",
+    youtube: "", // 如果有B站也可以换成 bilibili
   },
-  studies: [
-    // studies, qualifications and certifications
-    {
-      title: "Master of Applied Computing",
-      level: "Master",
-    },
-    {
-      title: "AWS Cloud Professional",
-      institution: "AWS",
-    },
-    {
-      title: "Neo4j Certified Professional",
-      institution: "Neo4j",
-    },
-    {
-      title: "ICAgile Certified Professional",
-      institution: "ICP",
-    },
-    {
-      title: "Full Stack Observability Practitioner",
-      institution: "New Relic",
-    },
-  ],
 };

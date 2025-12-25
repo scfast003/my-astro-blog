@@ -1,0 +1,28 @@
+---
+// 修正这里的路径：从 ../../../ 改为 ../../
+import { PROFILE } from "../../content/profileData";
+
+// 获取我们在 profileData.ts 里定义的收藏列表
+const favorites = PROFILE.favorites || [];
+---
+
+<div class="flex flex-col gap-4 h-full">
+  <div class="flex flex-wrap gap-2">
+    {
+      favorites.map((item) => (
+        <a
+          href={item.url}
+          target="_blank"
+          class="flex items-center gap-2 px-3 py-2 text-sm font-medium border rounded-lg bg-secondary/30 hover:bg-secondary/70 hover:scale-105 transition-all duration-300"
+        >
+          <span>{item.icon}</span>
+          <span>{item.title}</span>
+        </a>
+      ))
+    }
+  </div>
+  
+  {favorites.length === 0 && (
+    <p class="text-sm text-gray-500 italic">暂无收藏链接，请在 profileData.ts 中添加。</p>
+  )}
+</div>

@@ -1,39 +1,38 @@
 ---
-import ProjectCard from 'src/components/ProjectCard.astro'
+import ProjectCard from '../../components/ProjectCard.astro' // 确保路径正确，如果不正确请尝试 ../../components/ui/ProjectCard.astro
 import { getCollection } from "astro:content";
-
-
 import IndexPageLayout from "../../layouts/IndexPageLayout.astro";
 
-
-// read mdx files from projects folder as entities
+// 读取 posts 集合
 const posts = await getCollection('posts');
 
-// sort projects by dateStart DESC
-posts.sort((a: any, b: any) => {
-  return new Date(b.data.startDate) - new Date(a.data.startDate);
+// 1. 修复排序逻辑：posts 使用的是 pubDate，而不是 startDate
+posts.sort((a, b) => {
+  return new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime();
 });
 ---
 
-<IndexPageLayout title="Blog" description="This is a simple blog for my this profile website."
-                 subTitle="My Simple Blog">
+<IndexPageLayout title="Blog" description="这里记录我的思考与教程。" subTitle="我的博客">
 
-  <div class="grid grid-cols-3 gap-3">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
     {
-      posts.map((entity: any) => (
+      posts.map((entity) => (
         <ProjectCard
-          class=""
-          key={entity.data.title}
+          key={entity.slug}
           href={'/posts/' + entity.slug}
           heading={entity.data.title}
           subheading={entity.data.description}
-          altText={entity?.data?.image.alt}
-          imagePath={entity?.data?.image.url}
-          dateStart={entity.data.startDate}
+          
+          /* --- 修复核心 --- */
+          /* 你的数据结构里是 heroImage (字符串)，不是 image 对象 */
+          altText={entity.data.title}       /*既然没有专门的 alt，就用标题代替*/
+          imagePath={entity.data.heroImage} /*直接读取 heroImage 字段*/
+          
+          /* 你的数据结构里是 pubDate */
+          dateStart={entity.data.pubDate} 
         />
       ))
     }
   </div>
-
 
 </IndexPageLayout>

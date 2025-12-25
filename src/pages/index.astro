@@ -1,109 +1,48 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro'
-import IntroCard from '../components/sections/IntroCard.astro'
-import AboutMe from '../components/sections/AboutMe.astro'
-import Card from '../components/Card.astro'
-import TimeZoneCard from '../components/sections/TimeZoneCard.astro'
-import Books from '../components/sections/Books.astro'
-import ExperienceCard from '../components/sections/ExperienceCard.astro'
-import Projects from '../components/sections/Projects.astro'
-import StudyCard from '../components/sections/StudyCard.astro'
-import { PROFILE } from "../content/profileData";
-import BlogCard from '../components/sections/BlogCard.astro'
-const SITE = PROFILE.site
+import BaseLayout from '../layouts/BaseLayout.astro';
+import IntroCard from '../components/sections/IntroCard.astro';
+import TimeZoneCard from '../components/sections/TimeZoneCard.astro';
+import Contact from '../components/sections/Contact.astro'; 
+import Card from '../components/Card.astro'; 
+import { bookmarks } from '../data/bookmarks'; 
 ---
 
-
-<BaseLayout
-  title={SITE.SEO.title}
-  description={SITE.SEO.description}
-
->
+<BaseLayout>
   <div
     slot="loader"
-    class="fixed top-0 right-0 bottom-0 left-0 z-50 flex h-screen w-screen items-center justify-center text-3xl font-black uppercase text-neutral-50 loader bg-darkslate-700"
+    class="loader-grid grid grid-cols-1 gap-4 overflow-hidden md:grid-cols-4 md:grid-rows-2 h-full"
   >
+    
+    <IntroCard colSpan="md:col-span-3" rowSpan="md:row-span-1" />
+
+    <TimeZoneCard />
+
+    <Card colSpan="md:col-span-3" rowSpan="md:row-span-1" href="/bookmarks">
+      <div class="flex flex-col justify-between h-full p-6">
+        
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl">⭐</span>
+            <h2 class="text-xl font-bold">常用收藏 & 导航</h2>
+          </div>
+          <span class="text-xs text-gray-500 group-hover:text-primary transition-colors">查看全部 &rarr;</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            {bookmarks.slice(0, 3).map((item) => (
+              <div class="p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-primary/10 transition-colors text-sm truncate">
+                <span class="font-medium">{item.title}</span>
+              </div>
+            ))}
+        </div>
+
+        <p class="mt-4 text-xs text-gray-400">
+            点击卡片进入完整收藏库，或通过顶部菜单访问博客与项目。
+        </p>
+      </div>
+    </Card>
+
+    <Contact colSpan="md:col-span-1" rowSpan="md:row-span-1" />
+
   </div>
-  <main
-    transition:animate="fade"
-    class="relative m-auto grid w-full max-w-6xl gap-2 overflow-hidden p-2 sm:gap-2 sm:p-4 md:grid-cols-2 md:gap-3 md:p-6 lg:grid-cols-12 lg:gap-4"
-  >
-    <Card colSpan="lg:col-span-9 md:col-span-2" rowSpan="md:row-span-1 lg:row-span-4">
-      <IntroCard/>
-    </Card>
-    <Card colSpan="lg:col-span-3 md:col-span-1" rowSpan="md:row-span-3 lg:row-span-6" title="About me">
-      <AboutMe/>
-    </Card>
-
-    <Card colSpan="lg:col-span-3 md:col-span-1" rowSpan="md:row-span-3 lg:row-span-4" title="Projects">
-      <Projects/>
-    </Card>
-
-    <Card colSpan="lg:col-span-3 md:col-span-1" rowSpan="md:row-span-1 lg:row-span-2" title="Your time">
-      <TimeZoneCard/>
-    </Card>
-    <Card colSpan="lg:col-span-3 md:col-span-1" rowSpan="md:row-span-1 lg:row-span-2" title="My time">
-      <TimeZoneCard timezone={PROFILE.timezone} />
-    </Card>
-
-
-    <Card colSpan="lg:col-span-4 md:col-span-1" rowSpan="md:row-span-1 lg:row-span-2">
-      <div class="flex h-full flex-col justify-between">
-        <blockquote class="mt-6 border-l-2 pl-6 italic">
-          “{PROFILE.words[0]}”
-        </blockquote>
-        <p class="mt-2 text-xs"></p>
-      </div>
-    </Card>
-    <Card colSpan="md:col-span-1 lg:col-span-5" rowSpan="md:row-span-2 lg:row-span-2"
-          title="Education and Certificates">
-      <StudyCard/>
-    </Card>
-
-    <Card colSpan="md:col-span-1 lg:col-span-3" rowSpan="md:row-span-2 lg:row-span-2" title="Experiences">
-      <ExperienceCard/>
-    </Card>
-
-
-    <Card colSpan="md:col-span-1 lg:col-span-6" rowSpan="md:row-span-1 lg:row-span-1" title="Blog Posts">
-      <BlogCard/>
-    </Card>
-    <Card colSpan="md:col-span-1 lg:col-span-3" rowSpan="md:row-span-2 lg:row-span-2" title="Books I read">
-      <Books/>
-    </Card>
-    <Card colSpan="md:col-span-1 lg:col-span-6" rowSpan="md:row-span-2 lg:row-span-1" title="Contact">
-      <div class="flex h-full w-full items-center justify-center text-center text-sm">
-        <i>
-          Please feel free to reach out to me through <a href={PROFILE.links.twitter} class="underline hover:font-bold">Twitter
-          message</a> or <a href={PROFILE.repo+'/issues'} class="underline hover:font-bold">Github issue</a>.
-        </i>
-      </div>
-    </Card>
-
-
-  </main>
 </BaseLayout>
-
-<!--<script>-->
-<!--  // JS for animating the cards-->
-<!--  import { stagger, spring, timeline, type TimelineDefinition } from 'motion'-->
-<!--  import { loaderAnimation } from '../lib/constants'-->
-
-<!--  const cards = document.querySelectorAll('.card-animate')-->
-
-<!--  const sequence = [-->
-<!--    loaderAnimation,-->
-<!--    [-->
-<!--      cards,-->
-<!--      {y: ['40%', '0%'], opacity: [0, 1]},-->
-<!--      {-->
-<!--        at: '-0.1',-->
-<!--        duration: 0.2,-->
-<!--        delay: stagger(0.1),-->
-<!--        easing: spring({velocity: 200, stiffness: 50, damping: 10}),-->
-<!--      },-->
-<!--    ],-->
-<!--  ]-->
-
-<!--  timeline(sequence as TimelineDefinition)-->
-<!--</script>-->

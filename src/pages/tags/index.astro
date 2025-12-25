@@ -1,64 +1,39 @@
 ---
-import { getAndGroupUniqueTags } from "../../lib/utils";
-import TagsBarChart from "../../components/react/TagsBarChart";
-import IndexPageLayout from "../../layouts/IndexPageLayout.astro";
-import WordCloud from "../../components/react/WordCloud";
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
 
-const tagsMap = await getAndGroupUniqueTags();
+// 1. 只获取 posts 和 projects 的数据
+const posts = await getCollection('posts');
+const projects = await getCollection('projects');
 
-const tags = tagsMap.keys();
+// 2. 合并这两个集合的标签
+// 注意：删除了 books 和 experiences
+const tags = [...posts, ...projects].reduce((acc, item) => {
+  const itemTags = item.data.tags || [];
+  itemTags.forEach((tag) => {
+    if (!acc[tag]) {
+      acc[tag] = 0;
+    }
+    acc[tag] += 1;
+  });
+  return acc;
+}, {} as Record<string, number>);
 
-const tagsWithFrequency = []
-
-tagsMap.forEach((value, key) => {
-  tagsWithFrequency.push({value: key, count: value.length});
-});
-
-// sort tags by frequency
-tagsWithFrequency.sort((a, b) => b.count - a.count);
-
+const sortedTags = Object.keys(tags).sort((a, b) => a.localeCompare(b));
 ---
-<IndexPageLayout title="Tags"
-                 description="All tags used in this website"
-                 subTitle="Tags">
-  <div class="flex flex-col gap-4">
-    <div class="overflow-auto">
-      <h3 class="mb-2 text-lg font-bold">Tags Usage</h3>
-      <TagsBarChart
-        tags={tagsWithFrequency.slice(0, 10)}
-        client:load
-      />
-    </div>
 
-    <div>
-      <h3 class="mb-2 text-lg font-bold">
-        Word Cloud
-      </h3>
-      <WordCloud words={tagsWithFrequency} client:load/>
-      <blockquote class="mt-6 border-l-2 pl-6 text-xs font-light italic">
-        You can click on the tags above in the word cloud to see all the content related to that tag.
-      </blockquote>
+<BaseLayout title="标签云" description="所有文章和项目的标签索引">
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-8">标签索引</h1>
+    <div class="flex flex-wrap gap-4">
+      {sortedTags.map((tag) => (
+        <a
+          href={`/tags/${tag}`}
+          class="px-4 py-2 border rounded-full hover:bg-primary hover:text-white transition-colors text-lg"
+        >
+          {tag} <span class="text-sm opacity-70 ml-1">({tags[tag]})</span>
+        </a>
+      ))}
     </div>
-
-    <div class="sr-only">
-      <h3 class="mb-2 text-lg font-bold">
-        All Tags sorted by frequency
-      </h3>
-      <ul class="list-inside list-disc">
-        {
-          tagsWithFrequency.map((tag) => {
-            return (
-              <li>
-                <a href={`/tags/${tag.value}`} class="hover:font-bold">
-                  {tag.value} ({tag.count})
-                </a>
-              </li>
-            )
-          })
-        }
-      </ul>
-    </div>
-
   </div>
-</IndexPageLayout>
-
+</BaseLayout>
