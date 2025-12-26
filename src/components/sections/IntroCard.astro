@@ -5,8 +5,8 @@ import { PROFILE } from "../../content/profileData";
 import { Github, Youtube, Twitter, Book, PanelsTopLeft } from 'lucide-react';
 ---
 
-<Card colSpan="md:col-span-4" rowSpan="md:row-span-1">
-  <div class="flex flex-col md:flex-row h-full w-full gap-8 p-2 relative z-10">
+<Card colSpan="md:col-span-4 lg:col-span-4" rowSpan="md:row-span-1 lg:row-span-2">
+  <div class="flex flex-col md:flex-row h-full w-full gap-8 p-6 relative z-10">
     
     <div class="flex flex-col justify-center flex-1 gap-6 text-center md:text-left">
       <div>
@@ -32,9 +32,6 @@ import { Github, Youtube, Twitter, Book, PanelsTopLeft } from 'lucide-react';
             <span class="sr-only">GitHub Profile</span>
           </Button>
         </a>
-        {/* 你可以根据需要取消下面其他图标的注释 */}
-        {/* { PROFILE.links?.youtube && ( ... ) }
-        */}
       </div>
     </div>
 
