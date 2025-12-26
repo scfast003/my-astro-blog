@@ -9,7 +9,7 @@ import BookmarkCard from '../components/sections/BookmarkCard.astro';
 ---
 
 <BaseLayout title="Tiger's Homepage" description="Tiger的个人主页">
-  <div class="grid grid-cols-1 gap-4 md:grid-cols-4 md:grid-rows-4 p-4 animate-appear">
+  <div class="grid grid-cols-1 gap-4 max-w-6xl mx-auto p-4 md:grid-cols-4 md:grid-rows-4 animate-appear">
     
     <div class="md:col-span-4 md:row-span-1">
         <IntroCard />
@@ -19,15 +19,15 @@ import BookmarkCard from '../components/sections/BookmarkCard.astro';
         <TimeZoneCard />
     </div>
 
-    <div class="md:col-span-2 md:row-span-1">
+    <div class="md:col-span-1 md:row-span-1">
         <Projects />
     </div>
 
-    <div class="md:col-span-1 md:row-span-2">
+    <div class="md:col-span-2 md:row-span-2 h-full">
         <BookmarkCard />
     </div>
 
-    <div class="md:col-span-3 md:row-span-1">
+    <div class="md:col-span-2 md:row-span-1">
         <BlogCard />
     </div>
 
