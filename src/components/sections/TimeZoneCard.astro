@@ -1,12 +1,37 @@
 ---
-import NowTime from '../react/NowTime'
-const {timezone = null} = Astro.props
-
+import Card from '../../components/Card.astro';
+import { PROFILE } from '../../content/profileData';
 ---
 
-<div class="p-1 flex flex-row items-center gap-2 animate-appear">
-  <NowTime timezone={timezone} client:load />
-</div>
+<Card colSpan="lg:col-span-1" rowSpan="md:row-span-1" title="当前时间">
+  <div class="flex flex-col h-full w-full justify-center items-center gap-2 p-4">
+    <time datetime="" id="timeDisplay" class="text-3xl font-bold text-gray-800 dark:text-white tabular-nums tracking-wider">
+      00:00:00
+    </time>
+    <div class="flex items-center gap-1">
+      <span class="relative flex h-3 w-3">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+      </span>
+      <span class="text-sm text-gray-500">{PROFILE.timezone}</span>
+    </div>
+  </div>
+</Card>
 
-
-
+<script>
+  function updateTime() {
+    const timeDisplay = document.getElementById("timeDisplay");
+    if (timeDisplay) {
+      const now = new Date();
+      timeDisplay.textContent = now.toLocaleTimeString("en-US", {
+        hour12: false,
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        timeZone: "Asia/Shanghai"
+      });
+    }
+  }
+  setInterval(updateTime, 1000);
+  updateTime();
+</script>
