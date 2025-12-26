@@ -1,9 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-// 先注释掉可能不存在的组件，防止报错
+// 引入刚才做好的漂亮卡片
 import IntroCard from '../components/sections/IntroCard.astro';
-import TimeZoneCard from '../components/sections/TimeZoneCard.astro';
-import Contact from '../components/sections/Contact.astro'; 
 import Card from '../components/Card.astro'; 
 import { bookmarks } from '../data/bookmarks'; 
 
@@ -13,37 +11,47 @@ const posts = await getCollection("posts");
 // 只取最新的 1 篇来展示
 const latestPost = posts.sort((a, b) => new Date(b.data.pubDate) - new Date(a.data.pubDate))[0];
 ---
+
 <BaseLayout title="Tiger的首页" description="我的个人主页">
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
+  <div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-4 md:grid-rows-2 h-full">
     
-    <Card colSpan="md:col-span-3" rowSpan="md:row-span-1">
-      <div class="p-6">
-        <h1 class="text-3xl font-bold mb-2">👋 你好，我是 Tiger</h1>
-        <p class="text-gray-500">
-          欢迎来到我的个人知识库。这里记录了我的博客文章、项目和常用工具收藏。
-        </p>
-      </div>
-    </Card>
+    <IntroCard />
 
-    <Card colSpan="md:col-span-2" rowSpan="md:row-span-1" href="/bookmarks">
-      <div class="p-6 h-full flex flex-col justify-between">
-        <div>
-          <h2 class="text-xl font-bold mb-2">⭐ 常用收藏</h2>
-          <div class="flex flex-wrap gap-2">
-            {bookmarks && bookmarks.slice(0, 3).map((item) => (
-              <span class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-sm">
-                {item.title}
-              </span>
-            ))}
-          </div>
+    <Card colSpan="md:col-span-1" rowSpan="md:row-span-1" href={`/posts/${latestPost?.slug || ''}`}>
+      <div class="p-6 h-full flex flex-col justify-between hover:bg-primary/5 transition-colors cursor-pointer">
+        <div class="flex flex-col gap-2">
+           <span class="text-xs font-bold text-primary uppercase tracking-wider">LATEST POST</span>
+           <h3 class="text-lg font-bold line-clamp-3">
+             {latestPost ? latestPost.data.title : "暂无文章"}
+           </h3>
+           <span class="text-xs text-gray-500">
+             {latestPost ? new Date(latestPost.data.pubDate).toLocaleDateString() : ""}
+           </span>
         </div>
-        <p class="text-xs text-gray-400 mt-4">点击查看更多资源 &rarr;</p>
+        <div class="text-sm font-medium mt-4">阅读更多 &rarr;</div>
       </div>
     </Card>
 
-    <Card colSpan="md:col-span-1" rowSpan="md:row-span-1" href="/posts">
-      <div class="p-6 h-full flex flex-col justify-center items-center text-center hover:text-primary transition-colors">
-        <h2 class="text-xl font-bold">📝 阅读博客</h2>
+    <Card colSpan="md:col-span-3" rowSpan="md:row-span-1" href="/bookmarks">
+      <div class="p-6 h-full flex flex-col justify-between">
+        <div class="flex items-center gap-2 mb-2">
+            <span class="text-2xl">⭐</span>
+            <h2 class="text-xl font-bold">常用工具 & 收藏</h2>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {bookmarks && bookmarks.slice(0, 3).map((item) => (
+              <div class="p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 text-sm truncate border border-gray-100 dark:border-gray-800">
+                <span class="font-medium text-gray-700 dark:text-gray-200">{item.title}</span>
+              </div>
+            ))}
+        </div>
+      </div>
+    </Card>
+
+    <Card colSpan="md:col-span-1" rowSpan="md:row-span-1" href="/projects">
+      <div class="p-6 h-full flex flex-col justify-center items-center text-center group">
+        <h2 class="text-xl font-bold group-hover:scale-105 transition-transform">🛠️ 我的项目</h2>
+        <p class="text-xs text-gray-500 mt-2">查看开源作品</p>
       </div>
     </Card>
 
