@@ -2,7 +2,18 @@
 import Card from '../../components/Card.astro';
 import { Button } from '../../components/ui/button';
 import { PROFILE } from "../../content/profileData";
-import { Github, Youtube, Twitter, Book, PanelsTopLeft } from 'lucide-react';
+// 1. 引入需要的图标组件
+import { Github, Linkedin, Mail, Laptop, Dumbbell, Gamepad2, Book, User } from 'lucide-react';
+
+// 2. 定义图标映射表 (Key -> Component)
+// 这里的 key (如 'badminton') 必须和 profileData.ts 里的 icon 字段一致
+const iconMap: Record<string, any> = {
+  laptop: Laptop,      // 对应 "互联网游民"
+  badminton: Dumbbell, // 对应 "羽毛球" -> 哑铃图标
+  dota: Gamepad2,      // 对应 "Dota" -> 游戏手柄图标
+  book: Book,          // 对应 "终身学习"
+  default: User        // 默认图标 (防止填错)
+};
 ---
 
 <Card colSpan="md:col-span-4 lg:col-span-4" rowSpan="md:row-span-1 lg:row-span-2">
@@ -16,13 +27,20 @@ import { Github, Youtube, Twitter, Book, PanelsTopLeft } from 'lucide-react';
         <p class="text-sm text-gray-500 mt-2">{PROFILE.headLine}</p>
       </div>
       
-      <ul class="space-y-2 inline-block mx-auto md:mx-0">
-        {PROFILE.shortIntros.map((intro) => (
-          <li class="text-gray-700 dark:text-gray-300 flex items-center gap-2 justify-center md:justify-start">
-             <span class="w-1.5 h-1.5 rounded-full bg-primary/60 shrink-0"></span>
-             <span>{intro}</span>
-          </li>
-        ))}
+      {/* 3. 循环渲染逻辑 */}
+      <ul class="flex flex-col gap-2 inline-block mx-auto md:mx-0">
+        {PROFILE.shortIntros.map((item) => {
+          // 根据数据里的 icon 字段，动态选择图标组件
+          const IconComponent = iconMap[item.icon] || iconMap.default;
+          
+          return (
+            <li class="text-gray-700 dark:text-gray-300 flex items-center gap-2 justify-center md:justify-start">
+               {/* 渲染动态图标，设置为主色调 */}
+               <IconComponent size={18} className="text-primary" />
+               <span>{item.content}</span>
+            </li>
+          );
+        })}
       </ul>
       
       <div class="flex gap-3 flex-wrap justify-center md:justify-start">
@@ -37,6 +55,7 @@ import { Github, Youtube, Twitter, Book, PanelsTopLeft } from 'lucide-react';
 
     <div class="flex shrink-0 justify-center items-center md:justify-end">
        <div class="relative w-32 h-32 md:w-48 md:h-48 rounded-full overflow-hidden border-[4px] border-white dark:border-gray-800 shadow-xl group">
+         {/* 4. 头像引用：直接读取 profileData 里的新路径 */}
          <img
            src={PROFILE.avatarUrl}
            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
