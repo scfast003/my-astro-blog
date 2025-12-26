@@ -1,10 +1,12 @@
+Markdown
+
 # 🚀 Tiger's Personal Portfolio (基于 Astro)
 
 这是一个极简、高性能的个人主页/博客系统，基于 **Astro**、**React** 和 **Tailwind CSS** 构建。
 
 项目注重性能优化、SEO 友好，并且采用了**数据驱动**的开发模式，绝大部分个人信息都可以通过修改配置文件完成更新。
 
-演示界面 https://silver-custard-fe3385.netlify.app/
+**演示界面**: [https://silver-custard-fe3385.netlify.app/](https://silver-custard-fe3385.netlify.app/)
 
 ## ✨ 主要特性
 
@@ -28,8 +30,8 @@
 ### 1. 克隆项目
 
 ```bash
-git clone [https://github.com/scfast001/你的项目仓库名.git](https://github.com/scfast001/你的项目仓库名.git)
-cd 你的项目文件夹名
+git clone [https://github.com/scfast003/my-astro-blog.git](https://github.com/scfast003/my-astro-blog.git)
+cd my-astro-blog
 2. 安装依赖
 推荐使用 npm 或 pnpm：
 
