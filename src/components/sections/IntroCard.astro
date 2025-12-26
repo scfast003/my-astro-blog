@@ -2,49 +2,53 @@
 import Card from '../../components/Card.astro';
 import { Button } from '../../components/ui/button';
 import { PROFILE } from "../../content/profileData";
-import { Linkedin, Github, Mail, Youtube, Twitter, Rss, Book, PanelsTopLeft } from 'lucide-react';
+import { Github, Youtube, Twitter, Book, PanelsTopLeft } from 'lucide-react';
 ---
 
 <Card colSpan="md:col-span-4" rowSpan="md:row-span-1">
-  <div class="flex h-full w-full animate-appear">
-    <div class="flex flex-col justify-between gap-4 md:max-h-[300px]">
-      <div class="flex h-full flex-col">
-        <p class="m-0 text-xl font-light">
-          Hi, I'm <b class="font-bold">{PROFILE.firstName}</b>.
+  <div class="flex flex-col md:flex-row h-full w-full gap-8 p-2 relative z-10">
+    
+    <div class="flex flex-col justify-center flex-1 gap-6 text-center md:text-left">
+      <div>
+        <p class="m-0 text-2xl font-light leading-tight">
+          Hi, I'm <b class="font-bold text-primary">{PROFILE.firstName}</b> 👋
         </p>
-        <ul class="pt-4 space-y-1">
-          {PROFILE.shortIntros.map((intro, index) => (
-            <>
-              {/* 这里保留了你的逻辑：在中间插入换行，或者是简单的列表项 */}
-              <li class="text-gray-600 dark:text-gray-400">{intro}</li>
-            </>
-          ))}
-        </ul>
+        <p class="text-sm text-gray-500 mt-2">{PROFILE.headLine}</p>
       </div>
       
-      <div class="flex gap-4">
+      <ul class="space-y-2 inline-block mx-auto md:mx-0">
+        {PROFILE.shortIntros.map((intro) => (
+          <li class="text-gray-700 dark:text-gray-300 flex items-center gap-2 justify-center md:justify-start">
+             <span class="w-1.5 h-1.5 rounded-full bg-primary/60 shrink-0"></span>
+             <span>{intro}</span>
+          </li>
+        ))}
+      </ul>
+      
+      <div class="flex gap-3 flex-wrap justify-center md:justify-start">
         <a href={PROFILE.links.github} aria-label="github profile" target="_blank">
-          <Button aria-label="github profile">
-            <Github />
+          <Button aria-label="github profile" variant="outline" className="dark:bg-gray-800/50 dark:border-gray-700 hover:text-primary hover:border-primary/50 transition-all">
+            <Github size={18} />
             <span class="sr-only">GitHub Profile</span>
           </Button>
         </a>
-        {/* 保留你代码里其他的社交判断逻辑 */}
-        {
-          PROFILE.links?.youtube && <a href={PROFILE.links.youtube} aria-label="youtube channel" target="_blank">
-            <Button aria-label="youtube channel"><Youtube/><span class="sr-only">Youtube</span></Button>
-          </a>
-        }
-        {/* ...你可以继续添加其他图标，空间足够放下... */}
+        {/* 你可以根据需要取消下面其他图标的注释 */}
+        {/* { PROFILE.links?.youtube && ( ... ) }
+        */}
       </div>
     </div>
 
-    <img
-      src={PROFILE.avatarUrl}
-      class="pointer-events-none absolute bottom-[-20px] right-[-110px] z-[-1] max-h-[256px] w-auto select-none opacity-50 md:relative md:bottom-auto md:right-auto md:z-auto md:opacity-100"
-      width="100%"
-      height="auto"
-      alt={`image of ${PROFILE.name}`}
-    />
+    <div class="flex shrink-0 justify-center items-center md:justify-end">
+       <div class="relative w-32 h-32 md:w-48 md:h-48 rounded-full overflow-hidden border-[4px] border-white dark:border-gray-800 shadow-xl group">
+         <img
+           src={PROFILE.avatarUrl}
+           class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+           alt={`image of ${PROFILE.name}`}
+         />
+      </div>
+    </div>
+
   </div>
+
+  <div class="absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/4 w-72 h-72 bg-primary/10 rounded-full blur-[60px] z-0 pointer-events-none"></div>
 </Card>
