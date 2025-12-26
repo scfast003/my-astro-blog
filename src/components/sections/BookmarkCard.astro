@@ -1,36 +1,43 @@
 ---
 import Card from '../../components/Card.astro';
-// 修正这里的路径：从 ../../../ 改为 ../../
-import { PROFILE } from "../../content/profileData";
-
-// 获取我们在 profileData.ts 里定义的收藏列表
-// 如果 profileData 里没有 favorites，就给个空数组防止报错
-const favorites = PROFILE.favorites || [];
+// ✅ 关键修改：从 bookmarks.ts 导入数据，而不是 profileData
+import { bookmarks } from '../../data/bookmarks';
+// 引入一个通用图标，因为 bookmarks 数据里可能没有定义 icon 字段
+import { Globe } from 'lucide-react'; 
 ---
 
-<Card colSpan="md:col-span-1" rowSpan="md:row-span-2" title="我的收藏">
-  <div class="flex flex-col gap-4 h-full overflow-y-auto pr-1">
-    
-    <div class="flex flex-col gap-2">
-      {
-        favorites.map((item) => (
-          <a
-            href={item.url}
-            target="_blank"
-            class="flex items-center gap-3 px-3 py-3 text-sm font-medium border rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-primary/10 hover:border-primary/50 hover:scale-[1.02] transition-all duration-300 group"
-          >
-            {/* 如果 icon 是 emoji，直接显示；如果是组件需要另外处理，这里假设是 emoji 或字符 */}
-            <span class="text-xl group-hover:scale-110 transition-transform">{item.icon}</span>
-            <span class="text-gray-700 dark:text-gray-200">{item.title}</span>
-          </a>
-        ))
-      }
-    </div>
-  
-    {favorites.length === 0 && (
-      <div class="flex flex-col items-center justify-center h-full text-gray-400 text-xs italic text-center">
+<Card colSpan="md:col-span-1" rowSpan="md:row-span-2" title="网站收藏">
+  <div class="flex flex-col gap-3 h-full mt-2 overflow-y-auto pr-1">
+    {
+      bookmarks.map((item) => (
+        <a
+          href={item.url}
+          target="_blank"
+          class="flex items-center gap-3 px-3 py-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 hover:bg-primary/10 hover:scale-[1.02] transition-all duration-300 border border-transparent hover:border-primary/20 group"
+        >
+          {/* 图标部分：如果有自定义 icon 就用，没有就用默认的地球图标 */}
+          <span class="text-primary/70 group-hover:text-primary transition-colors">
+            <Globe size={18} />
+          </span>
+          
+          <div class="flex flex-col overflow-hidden">
+            <span class="font-bold text-sm truncate text-gray-700 dark:text-gray-200 group-hover:text-primary transition-colors">
+              {item.title}
+            </span>
+            {/* 如果 bookmarks 数据里有 description，就显示出来，没有就不显示 */}
+            {item.description && (
+              <span class="text-xs text-gray-400 truncate">
+                {item.description}
+              </span>
+            )}
+          </div>
+        </a>
+      ))
+    }
+
+    {bookmarks.length === 0 && (
+      <div class="flex flex-col items-center justify-center h-full text-gray-400 text-xs italic">
          <p>暂无收藏</p>
-         <p>请在 profileData.ts 中添加 favorites 数据</p>
       </div>
     )}
   </div>
