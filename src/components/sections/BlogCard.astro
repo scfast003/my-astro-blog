@@ -1,39 +1,35 @@
 ---
+import Card from '../../components/Card.astro';
 import { getCollection } from "astro:content";
-import Card from '../Card.astro'
-import { Button } from '../ui/button'
-import { formateLocalDate } from "../../lib/utils";
 
-
-let posts = await getCollection('posts');
-
-posts = posts.sort((a, b) => {
-  return new Date(b.data.startDate) - new Date(a.data.startDate);
-});
-posts = posts.slice(0, 2);
+const posts = await getCollection("posts");
+// 获取最新的一篇文章
+const latestPost = posts.sort((a, b) => new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf())[0];
 ---
 
-
-<div class="mt-2 space-y-4">
-  {
-    posts.map((project) => (
-      <div>
-        <h3 class="text-lg font-semibold text-primary">
-          <a href={`/posts/${project.slug}`} class="hover:underline line-clamp-2">
-            {project.data.title}
-          </a>
-        </h3>
-        <p class="text-sm line-clamp-2">
-          {project.data.description}
-        </p>
-        <p class="text-sm text-gray-600">
-          {formateLocalDate(project.data.startDate)} {project.data?.endDate ? '- ' + formateLocalDate(project.data.endDate) : ''}
-        </p>
-      </div>
-    ))
-  }
-  <a href="/posts">
-    <Button variant="link" className="pl-0"> View More</Button>
-  </a>
-</div>
-
+<Card colSpan="md:col-span-1" rowSpan="md:row-span-1" href={`/posts/${latestPost?.slug || ''}`}>
+  <div class="flex flex-col justify-between h-full p-4 group">
+    <div class="flex flex-col gap-2">
+       <div class="flex items-center justify-between">
+         <span class="text-xs font-bold text-orange-500 uppercase tracking-wider bg-orange-100 dark:bg-orange-900/30 px-2 py-0.5 rounded">LATEST POST</span>
+       </div>
+       
+       <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100 line-clamp-2 group-hover:text-primary transition-colors">
+         {latestPost ? latestPost.data.title : "暂无文章"}
+       </h3>
+       
+       <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
+         {latestPost ? latestPost.data.description : "写点什么吧..."}
+       </p>
+    </div>
+    
+    <div class="flex items-center justify-between mt-4">
+      <span class="text-xs text-gray-400">
+        {latestPost ? new Date(latestPost.data.pubDate).toLocaleDateString() : ""}
+      </span>
+      <span class="text-sm font-medium text-primary group-hover:translate-x-1 transition-transform">
+        阅读更多 &rarr;
+      </span>
+    </div>
+  </div>
+</Card>
