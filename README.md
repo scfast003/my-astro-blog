@@ -1,90 +1,128 @@
-# TechTim's Astro Bento Portfolio
+# 🚀 Tiger's Personal Portfolio (基于 Astro)
 
-This template helps you build a portfolio using Astro, Typescript, React, Tailwind CSS, and Shadcn UI.
+这是一个极简、高性能的个人主页/博客系统，基于 **Astro**、**React** 和 **Tailwind CSS** 构建。
 
-- [Live Demo](https://techtim42.bai.uno)
-- [GitHub Repo](https://github.com/tim-hub/techtim-astro-bento-portfolio)
+项目注重性能优化、SEO 友好，并且采用了**数据驱动**的开发模式，绝大部分个人信息都可以通过修改配置文件完成更新。
 
-## Technologies Used
+演示界面 https://silver-custard-fe3385.netlify.app/
 
-This project utilizes the following technologies:
+## ✨ 主要特性
 
-- **Astro**: A modern framework for building fast and efficient websites.
-- **Tailwind CSS**: A utility-first CSS framework for rapid and responsive design.
-- **Shadcn UI**: A collection of accessible and easy-to-use UI components.
-- **React**: For interactive components and advanced functionality.
-- **TypeScript**: For static type checking and improved developer experience.
+* **⚡️ 极致性能**: 基于 Astro 的静态生成 (SSG)，加载速度极快。
+* **🎨 响应式设计**: 使用 Tailwind CSS，完美适配手机、平板和桌面端。
+* **🛠 数据驱动**: 个人信息、社交链接、技能栈等均在独立的数据文件中管理。
+* **🧩 组件化**: 使用 React 组件构建 UI，逻辑清晰。
+* **🌗 暗黑模式**: 内置明亮/暗黑模式切换。
+* **🔍 SEO 优化**: 内置 SEO Meta 标签管理。
 
-## Requirements
+## 🛠️ 技术栈
 
-Before starting, make sure you have the following requirements installed:
+* **核心框架**: [Astro](https://astro.build/)
+* **UI 库**: [React](https://reactjs.org/)
+* **样式**: [Tailwind CSS](https://tailwindcss.com/)
+* **图标库**: [Lucide React](https://lucide.dev/)
+* **开发语言**: TypeScript
 
-- Node.js (version 18 or higher)
-- pnpm (version 8 or higher)
+## 🚀 快速开始
 
-## Installation
+### 1. 克隆项目
 
-To install and run the project locally, follow these steps:
+```bash
+git clone [https://github.com/scfast001/你的项目仓库名.git](https://github.com/scfast001/你的项目仓库名.git)
+cd 你的项目文件夹名
+2. 安装依赖
+推荐使用 npm 或 pnpm：
 
-1. Clone this repository:
+Bash
 
-   ```bash
-   git clone https://github.com/tim-hub/techtim-astro-bento-portfolio
-   ```
+npm install
+# 或者
+pnpm install
+3. 启动本地开发服务器
+Bash
 
-2. Navigate to the project directory:
+npm run dev
+启动后，在浏览器访问 http://localhost:4321 即可看到效果。
 
-   ```bash
-   cd techtim-astro-bento-portfolio
-   ```
+4. 构建生产版本
+Bash
 
-3. Install the dependencies:
+npm run build
+⚙️ 个性化配置 (如何修改内容)
+本项目采用了数据与逻辑分离的设计，修改内容非常简单。
 
-   ```bash
-   pnpm install
-   ```
+1. 修改个人基本信息
+核心配置文件位于：src/content/profileData.ts
 
-4. Start the development server:
+在这里你可以修改：
 
-   ```bash
-   pnpm run dev
-   ```
+基本信息: 姓名、Slogan、个人简介。
 
-5. Open your browser and visit `http://localhost:4312` to see your portfolio in action.
-6. Config your site
-   1. Edit `src/content/profileData.ts` to add your profile data
-   2. Edit `astro.config.mjs` to change the site information
+头像路径: 修改 avatarUrl (默认指向 public/avatar.png)。
 
+社交链接: 修改 links 对象内的 URL。
 
-## Important Considerations
+TypeScript
 
-- **Accessibility**: Ensure your portfolio is accessible to all users, including those with disabilities.
-- **SEO**: Optimize your portfolio for search engines by adding meta tags and relevant content.
-- **Performance**: Use modern web development practices to ensure optimal performance, such as lazy loading images and minimizing CSS/JS.
-- **Responsive Design**: Make sure your portfolio looks good on devices of all sizes, from mobile to desktop screens.
+// src/content/profileData.ts 示例
+export const PROFILE = {
+  firstName: "Tiger",
+  avatarUrl: "/avatar.png", 
+  // ...
+};
+2. 更换头像与网站图标
+请将你的图片文件放入项目根目录下的 public/ 文件夹：
 
-## Contributions
+个人头像: 命名为 avatar.png (建议 1:1 正方形)。
 
-Contributions are welcome! If you have ideas or improvements, please open an issue or submit a pull request.
+网站图标: 命名为 favicon.png。
 
-## License
+3. 自定义简介图标 (高级功能)
+为了实现特定的图标映射（例如“羽毛球”显示为“哑铃”），我们在组件层做了特殊处理。
 
-- This source codes are licensed under the [MIT License](LICENSE).
-- The content (`src/content/`) of the portfolio is licensed under the [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
-- The images (`public/`) used in the project are for template demonstration purposes only and should not be reused without permission.
+步骤 A: 在 src/content/profileData.ts 的 shortIntros 数组中定义 icon 关键字（如 badminton, dota）。
 
-## Inspiration
+步骤 B: 在 src/components/sections/IntroCard.astro 中修改 iconMap 对象，引入并绑定新的 Lucide 图标。
 
-This project was inspired by several outstanding portfolios. Here are some that served as references:
+JavaScript
 
-- [Bento Like Portfolio](https://github.com/Ladvace/astro-bento-portfolio)
-- [Minimal and bento Portfolio ](https://github.com/bue221/astro-portfolio)
+// src/components/sections/IntroCard.astro 示例
+const iconMap = {
+  laptop: Laptop,
+  badminton: Dumbbell, // 🏸 映射为哑铃图标
+  dota: Gamepad2,      // 🎮 映射为手柄图标
+  // ...在此处添加更多映射
+};
+📦 部署指南
+Vercel (推荐)
+本项目已针对 Vercel 进行了优化，支持一键部署。
 
-### Differences / Improvements
+将代码推送到 GitHub。
 
-- Centralised data management inside one folder
-  - Use Astro recommended [Content Collection](https://docs.astro.build/en/guides/content-collections/) to manage data
-  - `src/content` folder for blog posts, project data and profile data
-  - `src/content/profileData.ts` for general profile data
-- Tags system
-- Simplified Dark/Light mode toggle
+登录 Vercel 并点击 "Add New Project"。
+
+导入你的 GitHub 仓库。
+
+Framework Preset 选择 Astro。
+
+点击 Deploy。
+
+Netlify / Cloudflare Pages
+同样支持，构建命令均为 npm run build，输出目录为 dist。
+
+如果是 Netlify，初次绑定域名可能需要添加 TXT 记录以验证所有权。
+
+📂 项目结构概览
+Plaintext
+
+/
+├── public/             # 静态资源 (avatar.png, favicon.png, robots.txt)
+├── src/
+│   ├── components/     # UI 组件 (IntroCard, Header, etc.)
+│   ├── content/        # 核心数据文件 (profileData.ts)
+│   ├── layouts/        # 页面布局 (BaseLayout.astro)
+│   └── pages/          # 路由页面 (index.astro, projects.astro)
+├── astro.config.mjs    # Astro 配置文件
+└── tailwind.config.mjs # Tailwind 配置文件
+📄 许可证
+MIT License © 2025 Tiger
