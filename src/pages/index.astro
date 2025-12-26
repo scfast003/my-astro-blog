@@ -1,17 +1,16 @@
-
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-// 引入所有组件
+// 引入所有核心组件
 import IntroCard from '../components/sections/IntroCard.astro';
 import BlogCard from '../components/sections/BlogCard.astro';
 import TimeZoneCard from '../components/sections/TimeZoneCard.astro';
 import Contact from '../components/sections/Contact.astro'; 
-import Projects from '../components/sections/Projects.astro'; // 注意：你的截图里文件名是 Projects.astro
+import Projects from '../components/sections/Projects.astro'; 
 import BookmarkCard from '../components/sections/BookmarkCard.astro';
 ---
 
-<BaseLayout title="Tiger's Homepage" description="Tiger的个人主页">
-  <div slot="loader" class="loader-grid grid grid-cols-1 gap-4 md:grid-cols-4 auto-rows-[minmax(180px,auto)] p-4">
+<BaseLayout title="Tiger's Homepage" description="我的个人主页">
+  <div slot="loader" class="loader-grid grid grid-cols-1 gap-4 md:grid-cols-4 md:grid-rows-3 p-4">
     
     <div class="md:col-span-3 md:row-span-1">
         <IntroCard />
