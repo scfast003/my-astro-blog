@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#7c3aed" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="400" fill="url(#g)" />
+  <g fill="#fff" font-family="Inter, Arial, sans-serif">
+    <text x="60" y="140" font-size="56" font-weight="700">欢迎来到我的博客</text>
+    <text x="60" y="200" font-size="28" opacity="0.95">记录学习、实验与生活的点滴</text>
+  </g>
+  <g transform="translate(0,0)" opacity="0.08">
+    <circle cx="1000" cy="80" r="120" fill="#fff" />
+    <rect x="860" y="220" width="220" height="120" rx="12" fill="#fff" />
+  </g>
+</svg>
