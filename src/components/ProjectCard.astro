@@ -21,12 +21,14 @@ const {
   <ShadcnCard
     className={`transform-y-[-40%] align-start perspective-1200 group relative flex-none transform justify-start overflow-hidden shadow-lg transition duration-75 ease-in-out ${href ? 'cursor-pointer hover:border-primary' : ''} `}
   >
-    <img
-      src={imagePath}
-      alt={altText}
-      class="h-48 w-full rounded-2xl rounded-bl-none rounded-br-none object-cover"
-      loading="eager"
-    />
+    <div style="background: #f6f6f6; display: flex; align-items: center; justify-content: center; width: 100%; aspect-ratio: 16/9; overflow: hidden; border-top-left-radius: 1rem; border-top-right-radius: 1rem;">
+      <img
+        src={imagePath}
+        alt={altText}
+        style="max-width: 100%; max-height: 100%; object-fit: contain; display: block; margin: 0 auto;"
+        loading="eager"
+      />
+    </div>
     <div class="flex flex-col gap-y-0.5 px-5 py-4">
       <h3 class="text-lg font-medium line-clamp-2">{heading}</h3>
       <h4 class="text-muted-foreground line-clamp-3">{subheading}</h4>
