@@ -17,7 +17,7 @@ export const PROFILE = {
   headLine2: "热衷于折腾，探索的互联网爱好者。",
   
   website: "开发中",
-  repo: "https://github.com/scfast001",
+  repo: "https://github.com/scfast003",
   
   // ✅ 修改点 1: 确保这里是你新上传的图片路径
   avatarUrl: "/avatar.png", 
