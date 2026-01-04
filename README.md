@@ -6,7 +6,7 @@ Markdown
 
 项目注重性能优化、SEO 友好，并且采用了**数据驱动**的开发模式，绝大部分个人信息都可以通过修改配置文件完成更新。
 
-**演示界面**: [https://silver-custard-fe3385.netlify.app/](https://silver-custard-fe3385.netlify.app/)
+**演示界面**: https://scfast.me
 
 ## ✨ 主要特性
 
