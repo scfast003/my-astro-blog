@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/tim-hub/techtim-astro-bento-portfolio"
+    "url": "https://github.com/scfast003/my-astro-blog"
   },
   "homepage": "https://techtim42.bai.uno",
   "keywords": [
@@ -31,18 +31,21 @@
     "build": "astro build",
     "dev": "astro dev",
     "format": "prettier -w . --cache",
+    "format:check": "prettier --check . --cache",
     "preview": "astro preview",
-    "start": "astro dev"
+    "start": "astro dev",
+    "type-check": "astro check"
   },
   "dependencies": {
     "@astrojs/mdx": "^3.1.5",
     "@astrojs/react": "^3.6.2",
+    "@astrojs/sitemap": "^3.6.0",
     "@astrojs/tailwind": "^5.1.0",
     "@contentful/rich-text-html-renderer": "^17.0.0",
     "@radix-ui/react-dropdown-menu": "^2.1.1",
     "@radix-ui/react-separator": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
-    "astro": "^4.16.16",
+    "astro": "^4.16.19",
     "astro-breadcrumbs": "^3.2.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -59,6 +62,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.6",
     "@tailwindcss/typography": "^0.5.15",
     "@types/node": "^22.10.1",
     "@types/react": "^18.3.12",

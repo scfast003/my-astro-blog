@@ -12,20 +12,20 @@ export const bookmarks: Bookmark[] = [
     title: "ChatGPT",
     url: "https://chat.openai.com",
     desc: "AI 助手",
-    category: "常用工具"
+    category: "常用工具",
   },
   {
     title: "DeepL",
     url: "https://www.deepl.com",
     desc: "最准的翻译",
-    category: "常用工具"
+    category: "常用工具",
   },
   // --- 分类：开发资源 ---
   {
     title: "Tailwind CSS",
     url: "https://tailwindcss.com",
     desc: "样式框架文档",
-    category: "开发资源"
+    category: "开发资源",
   },
   // ... 更多
 ];
