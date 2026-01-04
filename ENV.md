@@ -9,11 +9,15 @@ Currently, no required environment variables are needed for basic functionality.
 ## Optional Variables
 
 ### Analytics (optional)
+
 If you want to add analytics tracking:
+
 - `PUBLIC_ANALYTICS_ID` - Your analytics tracking ID
 
 ### API Keys (optional)
+
 If you integrate with external services:
+
 - Add your API keys here as needed
 
 ## How to Use
